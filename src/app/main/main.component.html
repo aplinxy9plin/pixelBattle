@@ -10,9 +10,27 @@
       </button>
     </div>
     <div class="controlls">
-      <div class="color">
-
-      </div>
+      <div class="color-wide" [style]="styles.coloPickerStyle"></div>
+      <table>
+        <tbody>
+            <tr>
+              <th><div class="color" style="background-color: rgb(255,0,0)"></div></th>
+              <th><input type="range" min="0" max="255" (ngModelChange)="this.setColorToViewer(this.picker.get())" [(ngModel)]="picker.r"></th>
+              <th><input type="number"  min="0" max="255" (ngModelChange)="this.setColorToViewer(this.picker.get())" [(ngModel)]="picker.r" class="number-input"></th>
+            </tr>
+            <tr>
+              <th><div class="color" style="background-color: rgb(0,255,0)"></div></th>
+              <th><input type="range" min="0" max="255" (ngModelChange)="this.setColorToViewer(this.picker.get())" [(ngModel)]="picker.g"></th>
+              <th><input type="number"  min="0" max="255" (ngModelChange)="this.setColorToViewer(this.picker.get())" [(ngModel)]="picker.g" class="number-input"></th>
+            </tr>
+            <tr>
+              <th><div class="color" style="background-color: rgb(0,0,255)"></div></th>
+              <th><input type="range" min="0" max="255" (ngModelChange)="this.setColorToViewer(this.picker.get())" [(ngModel)]="picker.b"></th>
+              <th><input type="number"  min="0" max="255" (ngModelChange)="this.setColorToViewer(this.picker.get())" [(ngModel)]="picker.b" class="number-input"></th>
+            </tr>
+        </tbody>
+      </table>
+      <button (click)="setToPixel()" class="set-button">Set</button>
     </div>
   </div>
   <canvas #canvasElement class="canvas"

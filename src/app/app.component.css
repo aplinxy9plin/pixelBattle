@@ -1,0 +1,10 @@
+nav{
+  position: absolute;
+  border-bottom: 1px solid grey;
+  text-align: center;
+  padding: 10px 10px;
+  z-index: 100;
+  background-color: white;
+  display: flex;
+  align-items: center;
+}

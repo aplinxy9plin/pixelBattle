@@ -1,7 +1,7 @@
 .canvas {
   position: relative;
   width: 100vw;
-  height: 100vh;
+  height: 100%;
   background-color: #ffffff;
 }
 .overlay{
@@ -9,9 +9,13 @@
   position: absolute;
   z-index: 100;
   margin-top: 100vh;
-  width: 100%;
   transform: translateY(-100%);
   padding: 10px;
+}
+@media only screen and (max-width: 768px) {
+  .overlay{
+    margin-top: 90vh !important;
+  }
 }
 .button-round{
   font-size: 30px;
@@ -35,4 +39,20 @@
   width: 20px;
   background-color: grey;
   border: 1px solid black;
+}
+.color-wide{
+  height: 30px;
+  width: 30px;
+  background-color: grey;
+  border: 1px solid black;
+}
+button.set-button{
+  background-color: #453180;
+  color: white;
+  border: none;
+  padding: 5px 20px;
+  margin: 5px;
+}
+.number-input{
+  width: 50px;
 }

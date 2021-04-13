@@ -10,7 +10,7 @@ import (
 func main() {
 	http.HandleFunc("/", handler)
 
-	http.ListenAndServe(":8081", nil)
+	http.ListenAndServe(":8080", nil)
 }
 
 func handler(w http.ResponseWriter, r *http.Request) {
@@ -28,6 +28,3 @@ func handler(w http.ResponseWriter, r *http.Request) {
 		http.ServeFile(w, r, staticFilePath + urlPath)
 	}
 }
-
-
-
