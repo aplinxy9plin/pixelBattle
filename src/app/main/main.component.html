@@ -1,0 +1,22 @@
+<div class="container">
+  <div class="overlay">
+    <div class="buttons">
+      <button class="button-round" (click)="zoomOut()">
+        +
+      </button>
+      <br>
+      <button class="button-round" (click)="zoomIn()">
+        -
+      </button>
+    </div>
+    <div class="controlls">
+      <div class="color">
+
+      </div>
+    </div>
+  </div>
+  <canvas #canvasElement class="canvas"
+          (mousedown)="mouseDown($event)"
+          (mouseup)="mouseUp($event)"
+          (mousemove)="mouseMove($event)"></canvas>
+</div>
