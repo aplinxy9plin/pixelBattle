@@ -10,7 +10,18 @@
       </button>
     </div>
     <div class="controlls">
-      <div class="color-wide" [style]="styles.coloPickerStyle"></div>
+      <table>
+        <tbody>
+        <tr>
+          <th>
+            <div class="color-wide" [style]="styles.coloPickerStyle">&nbsp;</div>
+          </th>
+          <th>
+            <span *ngIf="timer.secondsLeft > 0"> &nbsp; {{ timer.secondsLeft }}s</span>
+          </th>
+        </tr>
+        </tbody>
+      </table>
       <table>
         <tbody>
             <tr>
@@ -30,7 +41,7 @@
             </tr>
         </tbody>
       </table>
-      <button (click)="setToPixel()" class="set-button">Set</button>
+      <button (click)="setToPixel()" *ngIf="timer.secondsLeft <= 0" class="set-button">Ok</button>
     </div>
   </div>
   <canvas #canvasElement class="canvas"

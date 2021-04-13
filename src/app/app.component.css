@@ -8,3 +8,13 @@ nav{
   display: flex;
   align-items: center;
 }
+
+.notify{
+  font-size: 15px;
+  font-family: 'Helvetica', sans-serif;
+  position: absolute;
+  z-index: 1000;
+  width: 100vw;
+  text-align: center;
+  color: white;
+}

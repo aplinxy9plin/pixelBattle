@@ -1,5 +1,9 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {PickerData, Styles} from './util/styles';
+import {CustomNotification, NotifyService} from '../notify/notify.service';
+import {SocketService} from '../socket-service/socket.service';
+import {Time} from '@angular/common';
+import {MyTimer} from './util/MyTimer';
 
 @Component({
   selector: 'app-main',
@@ -15,6 +19,8 @@ export class MainComponent implements OnInit {
   gameW = 50;
 
   pixelSize = 0;
+
+  timer: MyTimer = new MyTimer();
 
   dx = 0;
   dy = 0;
@@ -36,12 +42,31 @@ export class MainComponent implements OnInit {
   @ViewChild('canvasElement', {static: true}) canvas: ElementRef<HTMLCanvasElement> | undefined;
   ctx: CanvasRenderingContext2D | null = null;
 
-  constructor() {
-  }
+  constructor(private notifyService: NotifyService, private socket: SocketService) {}
 
   ngOnInit(): void {
-    this.initCanvas();
     this.setColorToViewer(this.picker.get());
+    this.socket.connect();
+    this.socket.onImage = (arr) => {
+      this.image = arr;
+      this.gameH = arr.length;
+      this.gameW = arr[0].length;
+      this.initCanvas();
+      this.drawImage();
+    };
+    this.socket.onChange = (str) => {
+      let g = str.split("|");
+      this.image[+g[0]][+g[1]] = g[3];
+      this.drawImage();
+    };
+    this.socket.onChangeMulti = (str) => {
+      str.forEach(i => {
+        let g = i.split("|");
+        this.image[+g[0]][+g[1]] = g[3];
+      });
+      this.drawImage();
+    };
+    this.timer.start(0);
   }
 
   touchstart(evt: TouchEvent) {
@@ -137,10 +162,6 @@ export class MainComponent implements OnInit {
       this.canvas.nativeElement.addEventListener("touchend", (t: TouchEvent)=> this.touchEnd(t));
     }
     this.pixelSize = this.canvasWidth / this.gameH;
-    this.image = new Array(this.gameH)
-      .fill(null)
-      .map(() => new Array(this.gameW)
-        .fill(this.grey));
     this.drawImage();
   }
 
@@ -182,7 +203,9 @@ export class MainComponent implements OnInit {
 
   setToPixel(){
     if(this.selected[0] > -1 && this.selected[0] < this.gameH && this.selected[1] > -1 && this.selected[1] < this.gameW ){
-      this.image[this.selected[0]][this.selected[1]] = this.picker.get();
+      let c = this.picker.get();
+      this.timer.start(10);
+      this.socket.sendCoordinates(this.selected[0], this.selected[1], c);
       this.drawImage();
     }
   }
