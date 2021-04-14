@@ -2,7 +2,8 @@
 
 Pixel Batte from reddit )))
 
-download for docker
+download docker image
+
 
 ``` 
 docker push sydykov/pixelbattle
