@@ -1,10 +1,10 @@
 export class MyTimer {
-  secondsLeft = 10;
-  constructor(time: number = 10) {
+  secondsLeft = 3;
+  constructor(time: number = 3) {
     this.secondsLeft = time
   }
 
-  start(time: number = 10){
+  start(time: number = 3){
     this.secondsLeft = time;
     this.tick();
   }

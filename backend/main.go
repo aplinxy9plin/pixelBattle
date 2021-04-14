@@ -109,7 +109,7 @@ func messageResolverUser(m *Message, conn *websocket.Conn) {
       key := data[2]
       if _, ok := connections[key]; ok {
         // TODO check time out
-        if time.Now().Sub(connections[key].LastSubmit) < 10 * time.Second{
+        if time.Now().Sub(connections[key].LastSubmit) < 2 * time.Second{
           conn.WriteMessage(1, Message{"error", "time out"}.json())
         }else {
           j := connections[key]
@@ -121,7 +121,6 @@ func messageResolverUser(m *Message, conn *websocket.Conn) {
           ix, _ := strconv.Atoi(data[0])
           iy, _ := strconv.Atoi(data[1])
           image[ix][iy] = data[3]
-
         }
       }
       break

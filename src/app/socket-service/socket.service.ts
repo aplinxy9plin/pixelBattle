@@ -19,7 +19,7 @@ export class Message {
   providedIn: 'root'
 })
 export class SocketService implements OnInit{
-  url = "ws://"+environment.host+"/socket/";
+  url = (window.location.protocol === 'https:' ? 'wss:' : 'ws:') + "//"+environment.host+"/socket/";
   ws: WebSocket | null = null;
   key = "";
   constructor(private notifyService: NotifyService) {}
@@ -53,6 +53,7 @@ export class SocketService implements OnInit{
       }
     }
   }
+
   sendCoordinates(x: number, y: number, color: string){
     this.ws?.send(new Message("setvalue", `${x}|${y}|${this.getKey()}|${color}`).json())
   }

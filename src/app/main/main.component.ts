@@ -15,6 +15,8 @@ export class MainComponent implements OnInit {
   isMouseDown = false;
   canvasWidth = 100;
 
+  timeMillis = 0;
+
   gameH = 100;
   gameW = 50;
 
@@ -45,6 +47,7 @@ export class MainComponent implements OnInit {
   constructor(private notifyService: NotifyService, private socket: SocketService) {}
 
   ngOnInit(): void {
+    this.restoreState();
     this.setColorToViewer(this.picker.get());
     this.socket.connect();
     this.socket.onImage = (arr) => {
@@ -89,6 +92,7 @@ export class MainComponent implements OnInit {
       this.lastMove = [evt.touches[0].clientX, evt.touches[0].clientY];
 
     }
+    this.saveState();
     this.drawImage();
   }
 
@@ -102,6 +106,32 @@ export class MainComponent implements OnInit {
       this.dy += evt.y - this.lastMove[1];
       this.lastMove = [evt.x, evt.y];
       this.drawImage();
+      this.saveState();
+    }
+  }
+
+  restoreState(){
+    let ps = localStorage.getItem("ps");
+    let dy = localStorage.getItem("dy");
+    let dx = localStorage.getItem("dx");
+    if (ps != null) {
+      this.pixelSize = +ps;
+    }
+    if (dy != null) {
+      this.dy = +dy;
+    }
+    if (dx != null) {
+      this.dx = +dx;
+    }
+  }
+
+  async saveState(){
+    let t = Math.floor(Date.now());
+    if(t - this.timeMillis > 500){
+      localStorage.setItem("dx", this.dx+"");
+      localStorage.setItem("dy", this.dy+"");
+      localStorage.setItem("ps", this.pixelSize+"");
+      this.timeMillis = t
     }
   }
 
@@ -110,14 +140,12 @@ export class MainComponent implements OnInit {
     let curDiffY = Math.abs(evt.touches[0].clientY - evt.touches[1].clientY);
     if (this.prevDiff > 0) {
       if (curDiff > this.prevDiff) {
-        console.log("Pinch moving OUT -> Zoom in");
         this.pixelSize += (curDiff - this.prevDiff)/this.gameH;
         if(this.pixelSize > this.maxPixelSize){
           this.pixelSize = this.maxPixelSize;
         }
       }
       if (curDiff < this.prevDiff) {
-        console.log("Pinch moving IN -> Zoom out");
         this.pixelSize -= (this.prevDiff - curDiff)/this.gameH;
         if(this.pixelSize < 1){
           this.pixelSize = 1
@@ -127,17 +155,19 @@ export class MainComponent implements OnInit {
   }
 
   zoomOut() {
-    this.pixelSize = this.pixelSize * 1.1;
-    this.drawImage();
-    console.log(this.pixelSize)
+    if(this.pixelSize < this.maxPixelSize){
+      this.pixelSize = this.pixelSize * 1.1;
+      this.drawImage();
+      this.saveState();
+    }
   }
 
   zoomIn() {
     if (this.pixelSize > 2) {
       this.pixelSize = Math.floor(this.pixelSize * 0.9);
       this.drawImage();
+      this.saveState();
     }
-    console.log(this.pixelSize)
   }
 
   mouseDown(evt: MouseEvent) {
@@ -204,7 +234,7 @@ export class MainComponent implements OnInit {
   setToPixel(){
     if(this.selected[0] > -1 && this.selected[0] < this.gameH && this.selected[1] > -1 && this.selected[1] < this.gameW ){
       let c = this.picker.get();
-      this.timer.start(10);
+      this.timer.start(3);
       this.socket.sendCoordinates(this.selected[0], this.selected[1], c);
       this.drawImage();
     }
