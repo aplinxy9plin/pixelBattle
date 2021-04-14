@@ -6,5 +6,5 @@ download docker image
 
 
 ``` 
-docker push sydykov/pixelbattle
+docker pull sydykov/pixelbattle
 ```
