@@ -1,4 +1,5 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import { ColorSketchModule } from 'ngx-color/sketch';
 import {PickerData, Styles} from './util/styles';
 import {CustomNotification, NotifyService} from '../notify/notify.service';
 import {SocketService} from '../socket-service/socket.service';
@@ -8,8 +9,12 @@ import {MyTimer} from './util/MyTimer';
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
-  styleUrls: ['./main.component.css']
+  styleUrls: ['./main.component.css'],
+  // imports: [
+  //   ColorSketchModule, // added to imports
+  // ],
 })
+
 export class MainComponent implements OnInit {
 
   isMouseDown = false;
@@ -35,6 +40,8 @@ export class MainComponent implements OnInit {
   prevDiff: number = 0;
 
   maxPixelSize = 100;
+
+  testColor = "#fff"
 
   image: Array<Array<string>> = [];
 
@@ -227,13 +234,17 @@ export class MainComponent implements OnInit {
     return [Math.floor((x - this.dx) / this.pixelSize), Math.floor((y - this.dy) / this.pixelSize)]
   }
 
-  setColorToViewer(colorCodes: string){
-    this.styles.coloPickerStyle = `background-color: rgb(${colorCodes})`
+  setColorToViewer(d: any){
+    // console.log(d)
+    // console.log(d?.color?.hex)
+    this.styles.coloPickerStyle = d?.color?.rgb.r + "," + d?.color?.rgb.g + "," + d?.color?.rgb.b
   }
 
   setToPixel(){
+    console.log('pressed')
     if(this.selected[0] > -1 && this.selected[0] < this.gameH && this.selected[1] > -1 && this.selected[1] < this.gameW ){
-      let c = this.picker.get();
+      let c = this.styles.coloPickerStyle;
+      console.log(this.styles.coloPickerStyle)
       this.timer.start(3);
       this.socket.sendCoordinates(this.selected[0], this.selected[1], c);
       this.drawImage();

@@ -10,19 +10,20 @@
       </button>
     </div>
     <div class="controlls">
-      <table>
+      <color-chrome (onChangeComplete)="this.setColorToViewer($event)"></color-chrome>
+      <!-- <table>
         <tbody>
         <tr>
           <th>
             <div class="color-wide" [style]="styles.coloPickerStyle">&nbsp;</div>
-          </th>
-          <th>
+          </th> -->
+          <!-- <th> -->
             <span *ngIf="timer.secondsLeft > 0"> &nbsp; {{ timer.secondsLeft }}s</span>
-          </th>
+          <!-- </th>
         </tr>
         </tbody>
-      </table>
-      <table>
+      </table> -->
+      <!-- <table>
         <tbody>
             <tr>
               <th><div class="color" style="background-color: rgb(255,0,0)"></div></th>
@@ -40,7 +41,7 @@
               <th><input type="number"  min="0" max="255" (ngModelChange)="this.setColorToViewer(this.picker.get())" [(ngModel)]="picker.b" class="number-input"></th>
             </tr>
         </tbody>
-      </table>
+      </table> -->
       <button (click)="setToPixel()" *ngIf="timer.secondsLeft <= 0" class="set-button">Ok</button>
     </div>
   </div>

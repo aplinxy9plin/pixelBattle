@@ -18,3 +18,15 @@ nav{
   text-align: center;
   color: white;
 }
+
+.sidebar {
+  position: absolute;
+  background-color: #fff;
+  min-width: 400px;
+  height: 100vh;
+  z-index: 101;
+  right: 0;
+  left: auto;
+  border: 1px solid #b4b4b4;
+  box-shadow: 2px 2px 10px grey;
+}
