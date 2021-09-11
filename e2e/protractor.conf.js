@@ -17,7 +17,7 @@ exports.config = {
   },
   directConnect: true,
   SELENIUM_PROMISE_MANAGER: false,
-  baseUrl: 'http://localhost:4200/',
+  baseUrl: 'http://0.0.0.0:4200/',
   framework: 'jasmine',
   jasmineNodeOpts: {
     showColors: true,
