@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  host: "foolish-bulldog-75.loca.lt"
+  host: "80.249.146.56:8080"
 };
 
 /*
