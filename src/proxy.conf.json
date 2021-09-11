@@ -1,7 +1,7 @@
 {
   "/socket/": {
-    "target": "https://ea3e-95-170-156-24.ngrok.io",
-    "secure": true,
+    "target": "http://localhost:8080",
+    "secure": false,
     "logLevel": "debug"
   }
 }
