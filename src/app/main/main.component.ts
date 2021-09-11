@@ -235,8 +235,13 @@ export class MainComponent implements OnInit {
   }
 
   setColorToViewer(d: any){
-    // console.log(d)
-    // console.log(d?.color?.hex)
+    if(!(d?.color?.rgb.r)){
+      d = {
+        r: 0,
+        g: 0,
+        b: 0
+      }
+    }
     this.styles.coloPickerStyle = d?.color?.rgb.r + "," + d?.color?.rgb.g + "," + d?.color?.rgb.b
   }
 
