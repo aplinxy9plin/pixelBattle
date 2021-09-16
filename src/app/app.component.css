@@ -1,6 +1,5 @@
 nav{
   position: absolute;
-  border-bottom: 1px solid grey;
   text-align: center;
   padding: 10px 10px;
   z-index: 100;
@@ -23,10 +22,25 @@ nav{
   position: absolute;
   background-color: #fff;
   min-width: 400px;
+  max-width: 500px;
   height: 100vh;
   z-index: 101;
   right: 0;
   left: auto;
   border: 1px solid #b4b4b4;
   box-shadow: 2px 2px 10px grey;
+  padding: 16px;
+}
+
+.rulesTitle {
+  margin-left: 16px;
+  cursor: pointer;
+  font-family: RaifBold;
+  font-size: 20px;
+  border-bottom: 1px solid #000;
+}
+
+.rulesText {
+  font-family: RaifRegular;
+  font-size: 20px;
 }

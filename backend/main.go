@@ -12,8 +12,8 @@ import (
 )
 
 var image [][]string
-var x = 100
-var y = 50
+var x = 500
+var y = 250
 
 var upgrader = websocket.Upgrader{
   ReadBufferSize:  1024,
@@ -40,7 +40,7 @@ func main() {
   for i := range image {
     image[i] = make([]string, y)
     for j := range image[i]{
-      image[i][j] = "250,250,250"
+      image[i][j] = "255,254,241"
     }
   }
 

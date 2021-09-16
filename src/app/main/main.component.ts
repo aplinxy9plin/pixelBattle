@@ -35,13 +35,13 @@ export class MainComponent implements OnInit {
 
   selected = [-1, -1];
 
-  grey = '240,240,240';
+  grey = '255,254,241';
 
   prevDiff: number = 0;
 
   maxPixelSize = 100;
 
-  testColor = "#fff"
+  testColor = "rgb(255,254,241)"
 
   image: Array<Array<string>> = [];
 
@@ -217,7 +217,7 @@ export class MainComponent implements OnInit {
             if(this.selected[0] == i && this.selected[1] == j){
               this.ctx.strokeStyle = 'rgb(0,0,0)';
             }else{
-              this.ctx.strokeStyle = 'rgb(255,255,255)';
+              this.ctx.strokeStyle = 'rgb(255,254,241)';
             }
             this.ctx.strokeRect(i * this.pixelSize + this.dx, j * this.pixelSize + this.dy, this.pixelSize, this.pixelSize);
           }
