@@ -47,11 +47,16 @@
   border: 1px solid black;
 }
 button.set-button{
-  background-color: #453180;
-  color: white;
+  background-color: rgb(254 230 0);
+  color: #000;
+  font-family: RaifBold;
   border: none;
-  padding: 5px 20px;
-  margin: 5px;
+  /* padding: 5px 20px;
+  margin: 5px; */
+  margin-top: 10px;
+  margin-bottom: 5px;
+  height: 25px;
+  width: 100%;
 }
 .number-input{
   width: 50px;
